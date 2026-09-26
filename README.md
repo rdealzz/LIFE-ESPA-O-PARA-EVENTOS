@@ -1,7 +1,7 @@
 # Life Eventos — site
 
 Site oficial do **Life Eventos**, salão de festas no Capão Raso, Curitiba.
-Site estático (HTML, CSS e JavaScript puro), sem build e sem dependências.
+Site estático (HTML, CSS e JavaScript), sem etapa de build.
 
 ## Estrutura
 
@@ -9,7 +9,7 @@ Site estático (HTML, CSS e JavaScript puro), sem build e sem dependências.
 index.html            página principal
 404.html              página de "não encontrado"
 assets/css/style.css  estilos (tema claro + modo escuro)
-assets/js/main.js     interações (tema, menu, carrossel, galeria, formulário)
+assets/js/main.js     interações (tema, menu, animações 3D, mural de fotos, bilhete)
 assets/img/           fotos, logo e ícones
 robots.txt, sitemap.xml, site.webmanifest
 .github/workflows/deploy.yml  publicação automática no GitHub Pages
@@ -32,10 +32,17 @@ python3 -m http.server 8000
 - **Fotos:** substitua os arquivos em `assets/img/` mantendo os nomes, ou troque os
   caminhos no `index.html`. Prefira `.webp` com até ~1400 px de largura.
 
-## Modo escuro
+## Modo claro e escuro
 
-O site abre no tema do sistema do visitante. O botão de lua/sol no topo alterna
-entre claro e escuro, e a escolha fica salva no navegador.
+O site sempre abre no **modo claro**. O botão de lua/sol no topo troca para o
+escuro, e a escolha fica salva no navegador daquela pessoa.
+
+## Animações
+
+As animações 3D (fotos que chegam girando, a "porta" que se abre, o passeio em
+carrossel e o mural de fotos) usam GSAP + ScrollTrigger, carregados do cdnjs.
+Se a pessoa preferir menos movimento no celular/computador, ou se o GSAP não
+carregar, o site aparece completo, só que sem animação.
 
 ## Publicar
 
