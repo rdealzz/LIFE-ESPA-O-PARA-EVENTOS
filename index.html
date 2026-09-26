@@ -148,7 +148,34 @@
       </div>
     </section>
 
-    <!-- ===================== PORTA (abre a foto em 3D) ===================== -->
+    <!-- ===================== PASSEIO 3D PELO LOCAL =====================
+         As fotos reais ganham profundidade com um mapa 3D gerado por IA
+         (Depth Anything V2, em assets/img/depth). Rolar a página move a
+         câmera para dentro de cada ambiente. Sem WebGL, fica a "porta" e
+         o carrossel logo abaixo. -->
+    <section class="walk" aria-label="Passeio 3D pelo Life" data-walk hidden>
+      <div class="walk-stage">
+        <canvas class="walk-canvas" data-walk-canvas aria-hidden="true"></canvas>
+        <div class="walk-intro" data-walk-intro>
+          <p class="hand walk-hello">Seja bem-vindo!</p>
+          <p class="walk-hint">role devagar para entrar no salão</p>
+        </div>
+        <div class="walk-note" data-walk-note aria-live="polite">
+          <span class="tape"></span>
+          <span class="hand walk-step" data-walk-step></span>
+          <h3 data-walk-title></h3>
+          <p data-walk-text></p>
+        </div>
+        <ol class="walk-dots" data-walk-dots aria-hidden="true"></ol>
+        <div class="walk-end" data-walk-end>
+          <p class="hand">gostou do passeio?</p>
+          <h3>Agora vem ver <em>ao vivo.</em></h3>
+          <a class="btn btn-solid" href="#contato">Agendar uma visita</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PORTA (plano B sem 3D) ===================== -->
     <section class="door" aria-label="Entrada do salão" data-door>
       <div class="door-stage">
         <div class="door-frame" data-door-frame>
@@ -424,9 +451,10 @@
     <button class="lightbox-nav next" type="button" aria-label="Próxima foto">›</button>
   </div>
 
-  <!-- Animações (versões fixas). Sem elas o site continua funcionando, só sem movimento. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- Animações (arquivos locais). Sem elas o site continua funcionando, só sem movimento. -->
+  <script src="assets/js/vendor/gsap.min.js" defer></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
+  <!-- O Three.js (3D) é carregado pelo main.js só quando o aparelho aguenta -->
 </body>
 </html>

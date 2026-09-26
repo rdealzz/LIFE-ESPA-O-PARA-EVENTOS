@@ -26,6 +26,26 @@
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   if (motion) root.classList.add("motion");
 
+  /* O passeio 3D precisa de WebGL. Decide logo no início para o menu apontar
+     "O espaço" para ele e o carrossel virar plano B. */
+  const walkEl = $("[data-walk]");
+  const tourEl = $("[data-tour]");
+  const hasWebGL = (() => {
+    try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }
+    catch (e) { return false; }
+  })();
+  let walkOn = motion && hasWebGL && !!walkEl;
+  const disableWalk = () => {
+    walkOn = false;
+    root.classList.remove("walk-on");
+    walkEl.hidden = true; walkEl.removeAttribute("id"); tourEl.id = "espaco";
+  };
+  if (walkOn) {
+    root.classList.add("walk-on");
+    walkEl.hidden = false;
+    tourEl.removeAttribute("id"); walkEl.id = "espaco";
+  }
+
   /* ---------- Tema: claro por padrão, escuro só se escolher ---------- */
   const THEME_KEY = "life-theme";
   const toggle = $("[data-theme-toggle]");
@@ -286,51 +306,70 @@
     $(".hero").addEventListener("pointerleave", () => { rX(0); rY(0); });
   }
 
-  /* ---- 2. A porta: a foto se abre em 3D até ocupar a tela ---- */
-  const frame = $("[data-door-frame]");
-  gsap.set(frame, { rotationX: 28, transformPerspective: 1200 });
-  gsap.timeline({
-    scrollTrigger: { trigger: "[data-door]", start: "top top", end: "+=160%", scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
-  })
-    .to("[data-door-hint]", { opacity: 0, duration: .15 }, 0)
-    .to(frame, { rotationX: 0, duration: .35, ease: "power2.out" }, 0)
-    .to(frame, { width: () => innerWidth, height: () => innerHeight, borderRadius: 0, duration: 1, ease: "power2.inOut" }, .25)
-    .to(".door-frame img", { scale: 1, duration: 1.1, ease: "none" }, .15)
-    .to(".door-shade", { opacity: .6, duration: .6 }, .6)
-    .fromTo("[data-door-welcome]", { opacity: 0, scale: .7, y: 60, rotationX: 60 }, { opacity: 1, scale: 1, y: 0, rotationX: 0, duration: .5, ease: "back.out(1.6)" }, .8)
-    .to({}, { duration: .3 });
+  /* ---- 2. Passeio 3D pelo local (Three.js + profundidade gerada por IA) ----
+     Se o aparelho não tiver WebGL, ou se o 3D não carregar, entra o plano B:
+     a porta que se abre e o carrossel dos ambientes. */
+  function planB() {
+    /* ---- 2. A porta: a foto se abre em 3D até ocupar a tela ---- */
+    const frame = $("[data-door-frame]");
+    gsap.set(frame, { rotationX: 28, transformPerspective: 1200 });
+    gsap.timeline({
+      scrollTrigger: { trigger: "[data-door]", start: "top top", end: "+=160%", scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
+    })
+      .to("[data-door-hint]", { opacity: 0, duration: .15 }, 0)
+      .to(frame, { rotationX: 0, duration: .35, ease: "power2.out" }, 0)
+      .to(frame, { width: () => innerWidth, height: () => innerHeight, borderRadius: 0, duration: 1, ease: "power2.inOut" }, .25)
+      .to(".door-frame img", { scale: 1, duration: 1.1, ease: "none" }, .15)
+      .to(".door-shade", { opacity: .6, duration: .6 }, .6)
+      .fromTo("[data-door-welcome]", { opacity: 0, scale: .7, y: 60, rotationX: 60 }, { opacity: 1, scale: 1, y: 0, rotationX: 0, duration: .5, ease: "back.out(1.6)" }, .8)
+      .to({}, { duration: .3 });
 
-  /* ---- 3. Passeio: no computador, a rolagem move o carrossel 3D ---- */
-  const mm = gsap.matchMedia();
-  mm.add("(min-width: 861px)", () => {
-    deskMode = true;
-    root.classList.add("motion-desk");
-    const first = rooms[0], last = rooms[rooms.length - 1];
-    const startX = () => innerWidth / 2 - (first.offsetLeft + first.offsetWidth / 2);
-    const distance = () => (last.offsetLeft + last.offsetWidth / 2) - (first.offsetLeft + first.offsetWidth / 2);
-    const apply = p => {
-      deskX = startX() - distance() * p;
-      track.style.transform = `translate3d(${deskX}px, 0, 0)`;
-      bar.style.transform = `scaleX(${0.2 + p * 0.8})`;
-      coverflow();
-    };
-    track.scrollLeft = 0;
-    const st = ScrollTrigger.create({
-      trigger: tour, start: "top top", end: () => "+=" + distance() * 1.1,
-      pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
-      onUpdate: self => apply(self.progress),
-      onRefresh: self => apply(self.progress)
+    /* ---- 3. Passeio: no computador, a rolagem move o carrossel 3D ---- */
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 861px)", () => {
+      deskMode = true;
+      root.classList.add("motion-desk");
+      const first = rooms[0], last = rooms[rooms.length - 1];
+      const startX = () => innerWidth / 2 - (first.offsetLeft + first.offsetWidth / 2);
+      const distance = () => (last.offsetLeft + last.offsetWidth / 2) - (first.offsetLeft + first.offsetWidth / 2);
+      const apply = p => {
+        deskX = startX() - distance() * p;
+        track.style.transform = `translate3d(${deskX}px, 0, 0)`;
+        bar.style.transform = `scaleX(${0.2 + p * 0.8})`;
+        coverflow();
+      };
+      track.scrollLeft = 0;
+      const st = ScrollTrigger.create({
+        trigger: tour, start: "top top", end: () => "+=" + distance() * 1.1,
+        pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
+        onUpdate: self => apply(self.progress),
+        onRefresh: self => apply(self.progress)
+      });
+      apply(0);
+      return () => {
+        deskMode = false;
+        root.classList.remove("motion-desk");
+        track.style.transform = "";
+        st.kill();
+        updateNative();
+      };
     });
-    apply(0);
-    return () => {
-      deskMode = false;
-      root.classList.remove("motion-desk");
-      track.style.transform = "";
-      st.kill();
-      updateNative();
-    };
+    mm.add("(max-width: 860px)", () => { updateNative(); });
+  }
+
+  const loadScript = src => new Promise((ok, fail) => {
+    const sc = document.createElement("script");
+    sc.src = src; sc.onload = ok; sc.onerror = fail;
+    document.head.appendChild(sc);
   });
-  mm.add("(max-width: 860px)", () => { updateNative(); });
+  if (walkOn) {
+    loadScript("assets/js/vendor/three.min.js")
+      .then(() => loadScript("assets/js/walk.js"))
+      .then(() => window.LifeWalk.init(walkEl))
+      .catch(() => { disableWalk(); planB(); ScrollTrigger.refresh(); });
+  } else {
+    planB();
+  }
 
   /* ---- 4. Mural: cada foto se abre como um cartão ---- */
   gsap.set(".shot", { opacity: 0 });

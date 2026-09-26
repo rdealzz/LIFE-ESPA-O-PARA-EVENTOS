@@ -9,7 +9,11 @@ Site estático (HTML, CSS e JavaScript), sem etapa de build.
 index.html            página principal
 404.html              página de "não encontrado"
 assets/css/style.css  estilos (tema claro + modo escuro)
-assets/js/main.js     interações (tema, menu, animações 3D, mural de fotos, bilhete)
+assets/js/main.js     interações (tema, menu, animações, mural de fotos, bilhete)
+assets/js/walk.js     passeio 3D pelo local (Three.js)
+assets/js/vendor/     Three.js, GSAP e ScrollTrigger (hospedados junto com o site)
+assets/img/depth/     mapas de profundidade das fotos, gerados por IA
+ferramentas/          script que gera os mapas de profundidade
 assets/img/           fotos, logo e ícones
 robots.txt, sitemap.xml, site.webmanifest
 .github/workflows/deploy.yml  publicação automática no GitHub Pages
@@ -37,10 +41,24 @@ python3 -m http.server 8000
 O site sempre abre no **modo claro**. O botão de lua/sol no topo troca para o
 escuro, e a escolha fica salva no navegador daquela pessoa.
 
+## Passeio 3D pelo local
+
+Logo depois do topo, a pessoa "entra" no Life: rolando a página, a câmera
+anda por dentro da recepção, do salão, da decoração, da área de jogos, da sala
+de estar e da festa. Cada foto real ganha relevo 3D a partir de um mapa de
+profundidade gerado pela IA **Depth Anything V2** (arquivos em
+`assets/img/depth/`). Nada é inventado: a cena usa só as fotos do espaço.
+
+- **Trocar ou adicionar fotos:** coloque a foto em `assets/img/` (`.webp`),
+  rode `python ferramentas/gerar-profundidade.py <nome>` e ajuste a lista
+  `ROOMS` no topo de `assets/js/walk.js` (ordem, títulos e textos).
+- Sem WebGL (3D) no aparelho, o site mostra no lugar a "porta" que se abre e o
+  carrossel dos ambientes.
+
 ## Animações
 
 As animações 3D (fotos que chegam girando, a "porta" que se abre, o passeio em
-carrossel e o mural de fotos) usam GSAP + ScrollTrigger, carregados do cdnjs.
+carrossel e o mural de fotos) usam GSAP + ScrollTrigger e Three.js, hospedados em `assets/js/vendor/`.
 Se a pessoa preferir menos movimento no celular/computador, ou se o GSAP não
 carregar, o site aparece completo, só que sem animação.
 

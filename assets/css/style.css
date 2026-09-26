@@ -519,3 +519,41 @@ html:not(.motion) .door-hint { display: none; }
 .motion-desk .room-text h3 { font-size: 1.6rem; }
 .motion-desk .room-text p { font-size: .94rem; }
 .motion-desk .tour-foot { margin-top: .6rem; }
+
+/* ---------- Passeio 3D pelo local ---------- */
+.walk { position: relative; height: 100svh; overflow: hidden; background: var(--paper); transition: background-color .5s; }
+.walk[hidden] { display: none; }
+.walk-stage { position: absolute; inset: 0; }
+.walk-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 1.2s var(--ease); }
+.walk.is-ready .walk-canvas { opacity: 1; }
+.walk-intro { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; text-align: center; pointer-events: none; padding: 0 1rem; }
+.walk-hello { font-size: clamp(3.6rem, 10vw, 8rem); color: var(--ink); rotate: -4deg; text-shadow: 0 2px 24px var(--paper), 0 0 60px var(--paper); }
+.walk-hint { margin-top: 1rem; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); background: var(--header-bg); padding: .45rem .9rem; border-radius: 999px; }
+.walk-hint::after { content: ""; display: block; width: 1px; height: 30px; margin: .6rem auto 0; background: currentColor; animation: drip 2s var(--ease) infinite; transform-origin: top; }
+.walk-note {
+  position: absolute; left: max(var(--pad), 1rem); bottom: clamp(1.2rem, 5svh, 3rem);
+  width: min(360px, calc(100% - 2rem)); padding: 1.4rem 1.4rem 1.3rem;
+  background: var(--card); border-radius: 5px; box-shadow: var(--shadow-lg);
+  rotate: -1.5deg; opacity: 0; transform: translateY(20px);
+  transition: background-color .5s;
+}
+.walk-note .tape { width: 70px; margin-left: -35px; }
+.walk-step { font-size: 1.35rem; color: var(--rose-deep); }
+.walk-note h3 { margin: .1rem 0 .4rem; font-size: 1.7rem; }
+.walk-note p { color: var(--ink-soft); font-size: .95rem; line-height: 1.55; }
+.walk-dots { position: absolute; right: max(var(--pad), 1rem); top: 50%; translate: 0 -50%; list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+.walk-dots li { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--ink-soft); transition: background-color .4s, transform .4s var(--ease); }
+.walk-dots li.is-on { background: var(--rose-deep); border-color: var(--rose-deep); transform: scale(1.35); }
+.walk-end { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; text-align: center; gap: .6rem; opacity: 0; visibility: hidden; padding: 0 1rem; }
+.walk-end .hand { font-size: 1.9rem; color: var(--rose-deep); rotate: -3deg; }
+.walk-end h3 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 1rem; }
+.walk-end h3 em { font-style: italic; color: var(--gold); }
+.walk-end::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60% 50% at 50% 50%, var(--paper) 30%, transparent 100%); opacity: .92; }
+@media (max-width: 700px) {
+  .walk-note { padding: 1.1rem 1.1rem 1rem; bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 70px); }
+  .walk-note h3 { font-size: 1.4rem; }
+  .walk-note p { font-size: .88rem; }
+  .walk-dots { right: .6rem; }
+}
+/* quando o passeio 3D está ativo, a porta e o carrossel (plano B) saem de cena */
+.walk-on .door, .walk-on .tour { display: none; }
