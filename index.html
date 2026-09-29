@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,9 +7,8 @@
   <meta name="description" content="Salão de festas novo no Capão Raso, em Curitiba, com pé-direito alto, área de jogos, sala de estar e recepção moderna. Aniversários, 15 anos, chás, casamentos e confraternizações. Nota 4,9 no Google.">
   <link rel="canonical" href="https://www.espacolifeeventos.com.br/">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#FBF8F3" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#141211" media="(prefers-color-scheme: dark)">
-  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FBF8F3">
+  <meta name="color-scheme" content="light">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -24,16 +23,6 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
-
-  <!-- Aplica o tema salvo antes de pintar a página (evita "piscar") -->
-  <script>
-    (function () {
-      try {
-        var t = localStorage.getItem("life-theme");
-        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
-      } catch (e) {}
-    })();
-  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

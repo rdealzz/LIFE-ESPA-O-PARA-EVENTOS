@@ -21,11 +21,9 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-  /* ---------- Tema claro / escuro ---------- */
-  const THEME_KEY = "life-theme";
-  const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+  /* ---------- Tema claro / escuro (sempre inicia no claro) ---------- */
   const toggle = $("[data-theme-toggle]");
-  const currentTheme = () => root.getAttribute("data-theme") || (systemDark.matches ? "dark" : "light");
+  const currentTheme = () => root.getAttribute("data-theme") || "light";
   const syncToggle = () => {
     if (!toggle) return;
     const dark = currentTheme() === "dark";
@@ -36,10 +34,8 @@
     toggle.addEventListener("click", () => {
       const next = currentTheme() === "dark" ? "light" : "dark";
       root.setAttribute("data-theme", next);
-      try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* navegação privada */ }
       syncToggle();
     });
-    systemDark.addEventListener("change", syncToggle);
     syncToggle();
   }
 
