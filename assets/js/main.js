@@ -21,24 +21,6 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-  /* ---------- Tema claro / escuro (sempre inicia no claro) ---------- */
-  const toggle = $("[data-theme-toggle]");
-  const currentTheme = () => root.getAttribute("data-theme") || "light";
-  const syncToggle = () => {
-    if (!toggle) return;
-    const dark = currentTheme() === "dark";
-    toggle.setAttribute("aria-label", dark ? "Ativar modo claro" : "Ativar modo escuro");
-    toggle.setAttribute("aria-pressed", String(dark));
-  };
-  if (toggle) {
-    toggle.addEventListener("click", () => {
-      const next = currentTheme() === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      syncToggle();
-    });
-    syncToggle();
-  }
-
   /* ---------- Topo: vidro ao rolar ---------- */
   const top = $("[data-top]");
   const onScroll = () => top.classList.toggle("is-scrolled", window.scrollY > 30);

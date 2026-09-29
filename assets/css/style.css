@@ -155,22 +155,6 @@ p { margin: 0; }
 .top-actions { display: flex; align-items: center; gap: .8rem; }
 .top-cta { min-height: 44px; padding: .6rem 1.3rem; font-size: .72rem; }
 
-.theme-toggle {
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 1px solid var(--line-strong); background: transparent;
-  display: grid; place-items: center; position: relative; overflow: hidden;
-  transition: border-color .3s, transform .4s var(--ease);
-}
-.theme-toggle:hover { border-color: var(--gold); transform: rotate(-12deg); }
-.theme-toggle svg { grid-area: 1 / 1; width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; transition: transform .5s var(--ease), opacity .4s; }
-.i-sun { transform: translateY(140%) rotate(90deg); opacity: 0; }
-:root[data-theme="dark"] .i-moon { transform: translateY(-140%) rotate(-90deg); opacity: 0; }
-:root[data-theme="dark"] .i-sun { transform: none; opacity: 1; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .i-moon { transform: translateY(-140%) rotate(-90deg); opacity: 0; }
-  :root:not([data-theme="light"]) .i-sun { transform: none; opacity: 1; }
-}
-
 .burger { display: none; width: 44px; height: 44px; border: 1px solid var(--line-strong); border-radius: 50%; background: transparent; position: relative; }
 .burger span { position: absolute; left: 13px; right: 13px; height: 1.5px; background: currentColor; transition: transform .4s var(--ease), top .4s var(--ease); }
 .burger span:first-child { top: 17px; }
