@@ -113,6 +113,30 @@
     } else if (dots[0]) {
       dots[0].classList.add("is-done");
     }
+    // No celular: deslizar o dedo na abertura passa as fotos
+    let tx = null, ty = 0;
+    const heroBox = stage.closest(".hero");
+    heroBox.addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+    heroBox.addEventListener("touchend", e => {
+      if (tx === null) return;
+      const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+      tx = null;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      stop(); setDur(EACH);
+      go((cur + (dx < 0 ? 1 : slides.length - 1)) % slides.length);
+      if (!reduce) start();
+    }, { passive: true });
+  }
+
+  /* ---------- Barra de ação do celular: aparece depois da abertura ---------- */
+  const mbar = $("[data-mbar]");
+  const heroEl = $(".hero");
+  const contactForm = $("[data-form]");
+  if (mbar && heroEl && "IntersectionObserver" in window) {
+    let pastHero = false, atForm = false;
+    const sync = () => mbar.classList.toggle("is-on", pastHero && !atForm);
+    new IntersectionObserver(([en]) => { pastHero = !en.isIntersecting; sync(); }, { rootMargin: "-30% 0px 0px 0px" }).observe(heroEl);
+    if (contactForm) new IntersectionObserver(([en]) => { atForm = en.isIntersecting; sync(); }).observe(contactForm);
   }
 
   /* ---------- Avaliações do Google ---------- */
@@ -316,12 +340,14 @@
       img.hidden = isVideo; vid.hidden = !isVideo;
       box.hidden = false;
       document.body.style.overflow = "hidden";
+      document.body.classList.add("lb-open");
       $(".lightbox-close", box).focus();
     };
     const close = () => {
       box.hidden = true;
       vid.pause(); vid.removeAttribute("src"); vid.load();
       document.body.style.overflow = "";
+      document.body.classList.remove("lb-open");
       if (lastFocus) lastFocus.focus();
     };
     photos.forEach((p, i) => p.addEventListener("click", () => { show(i); openBox(false); }));
