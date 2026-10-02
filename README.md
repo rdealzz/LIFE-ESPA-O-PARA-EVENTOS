@@ -29,10 +29,7 @@ python3 -m http.server 8000
   Cole em `reviews` apenas avaliações reais do Google, no formato
   `{ name: "Maria S.", when: "há 2 meses", text: "..." }`. Com a lista vazia, a seção
   mostra só a nota e o botão "Ler todas as avaliações".
-- **Fachada e mapa:** na seção `#local` do `index.html`. A aba "Fachada" mostra
-  `assets/img/fachada.webp`; o mapa usa a busca "Life Eventos 2023, R. Olindo Sequinel, 275".
-  Para colocar o Street View, cole na aba um iframe gerado em Google Maps → Compartilhar →
-  Incorporar um mapa (com o Street View aberto na frente do prédio).
+- **Mapa:** na seção `#local` do `index.html`, busca "Life Eventos 2023, R. Olindo Sequinel, 275".
 - **Cores:** variáveis no topo de `assets/css/style.css` (`:root` para o tema claro,
   `[data-theme="dark"]` para o escuro).
 - **Fotos:** ficam em `assets/img/`, cada uma em duas versões: `nome.webp` (1200 × 1600)

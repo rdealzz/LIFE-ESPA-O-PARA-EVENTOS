@@ -210,31 +210,17 @@
     }));
   }
 
-  /* ---------- Local: alterna entre a fachada e o mapa (o mapa só carrega quando é aberto) ---------- */
-  const tabs = $$("[data-map-tab]");
-  if (tabs.length) {
-    const select = tab => {
-      tabs.forEach(t => {
-        const on = t === tab;
-        t.setAttribute("aria-selected", String(on));
-        t.tabIndex = on ? 0 : -1;
-        const panel = $("#" + t.getAttribute("aria-controls"));
-        panel.hidden = !on;
-        const frame = $("iframe[data-src]", panel);
-        if (on && frame) { frame.src = frame.dataset.src; frame.removeAttribute("data-src"); }
-      });
-    };
-    tabs.forEach((t, i) => {
-      t.addEventListener("click", () => select(t));
-      t.addEventListener("keydown", e => {
-        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-        const n = tabs[(i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
-        select(n); n.focus();
-      });
-    });
+  /* ---------- Mapa: carrega só quando aparece e a rolagem para (evita travar) ---------- */
+  const mapFrame = $(".map iframe[data-src]");
+  if (mapFrame) {
+    let idle = 0, seen = false;
+    const loadMap = () => { if (mapFrame.dataset.src) { mapFrame.src = mapFrame.dataset.src; mapFrame.removeAttribute("data-src"); window.removeEventListener("scroll", wait); } };
+    const wait = () => { clearTimeout(idle); idle = setTimeout(() => { if (seen) loadMap(); }, 450); };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([en], obs) => { if (en.isIntersecting) { seen = true; wait(); obs.disconnect(); } }, { rootMargin: "200px 0px" }).observe(mapFrame);
+      window.addEventListener("scroll", wait, { passive: true });
+    } else loadMap();
   }
-  const year = $("[data-year]");
-  if (year) year.textContent = new Date().getFullYear();
 
   /* ---------- Formulário que abre o WhatsApp ---------- */
   const form = $("[data-form]");
