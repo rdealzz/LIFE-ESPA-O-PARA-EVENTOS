@@ -368,6 +368,17 @@ p { margin: 0; }
   .hours div + div { border-left: 0; border-top: 1px solid var(--gold-line); padding-top: 1.2rem; }
 }
 
+/* ---------- O que a decoração inclui ---------- */
+.decor-inc { max-width: 900px; margin: clamp(2.5rem, 5vw, 4rem) auto 0; background: var(--ivory); border: 1px solid var(--gold-line); padding: clamp(1.6rem, 4vw, 3rem); display: grid; gap: 1.6rem; }
+.decor-head { display: grid; gap: .6rem; text-align: center; justify-items: center; }
+.decor-head h3 { font-size: clamp(1.9rem, 3.4vw, 2.5rem); }
+.decor-head p:last-child { color: var(--ink-soft); max-width: 32rem; }
+.decor-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 2.4rem; }
+.decor-list li { display: grid; grid-template-columns: 3.4rem 1fr; align-items: baseline; gap: .6rem; padding: .85rem 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: .95rem; }
+.decor-list b { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1; color: var(--gold); }
+.decor-extra { font-family: var(--serif); font-style: italic; font-size: 1.15rem; text-align: center; color: var(--ink-soft); }
+@media (max-width: 760px) { .decor-list { grid-template-columns: 1fr; } .decor-list li { grid-template-columns: 2.8rem 1fr; } .decor-head p:last-child { font-size: .95rem; } }
+
 /* ---------- Galeria ---------- */
 .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; gap: clamp(.7rem, 1.4vw, 1.1rem); }
 .photo { contain: paint; display: block; width: 100%; overflow: hidden; cursor: zoom-in; aspect-ratio: 3 / 4; background: var(--blush); position: relative; }
