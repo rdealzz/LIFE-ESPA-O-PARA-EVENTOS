@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&family=Pinyon+Script&display=swap">
-  <link rel="preload" as="image" href="assets/img/abertura-poster.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/img/arco-dourado.webp" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/style.css">
 
   <script type="application/ld+json">
@@ -88,15 +88,20 @@
     <!-- ===================== ABERTURA ===================== -->
     <section class="hero" id="inicio" aria-labelledby="t-hero">
       <div class="hero-stage" aria-hidden="true">
-        <video class="hero-bg" data-autoplay data-priority muted loop playsinline preload="auto" poster="assets/img/abertura-poster.webp">
-          <source src="assets/video/abertura.mp4" type="video/mp4">
-        </video>
+        <div class="hero-slides" data-slides>
+          <img class="is-on" src="assets/img/arco-dourado.webp" alt="" width="1200" height="1600" fetchpriority="high">
+          <img data-src="assets/img/mesa-casamento.webp" alt="" width="1200" height="1600">
+          <img data-src="assets/img/salao-festa.webp" alt="" width="1200" height="1600">
+          <img data-src="assets/img/vogue-18.webp" alt="" width="1200" height="1600">
+          <img data-src="assets/img/quinze-anos.webp" alt="" width="1200" height="1600">
+        </div>
         <svg class="hero-hex" viewBox="0 0 200 200">
           <path d="M100 6 L181 53 L181 147 L100 194 L19 147 L19 53Z"/>
           <path d="M100 18 L172 58 L178 140 L104 186 L26 150 L22 62Z"/>
         </svg>
         <span class="hero-chip chip-a"><b>até 80</b> convidados</span>
         <span class="hero-chip chip-b"><b>★ 4,9</b> no Google</span>
+        <ol class="hero-dots" data-slide-dots><li class="is-on"><span>Arco dourado com flores e pendentes</span></li><li><span>Recepção de casamento</span></li><li><span>Salão principal</span></li><li><span>18 anos, preto e dourado</span></li><li><span>Festa de 15 anos</span></li></ol>
       </div>
 
       <div class="hero-text">
@@ -109,7 +114,7 @@
         <p class="hero-lead hero-in" style="--i:4">Um espaço moderno e exclusivo, pensado em cada detalhe para receber até 80 convidados com conforto e elegância.</p>
         <div class="hero-actions hero-in" style="--i:5">
           <a class="btn btn-solid" href="#contato">Consultar disponibilidade</a>
-          <button class="btn btn-ghost" type="button" data-film="assets/video/abertura.mp4" data-poster="assets/img/abertura-poster.webp" data-title="O Life em 18 segundos">
+          <button class="btn btn-ghost" type="button" data-film="assets/video/abertura.mp4" data-poster="assets/img/abertura-poster.webp" data-title="Os melhores momentos do Life">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
             Assistir ao filme
           </button>
@@ -167,12 +172,12 @@
           <p class="section-lead reveal">Da fachada ao mezanino, faça um passeio pelo espaço como se estivesse aqui. Cada ambiente acende enquanto o vídeo passa por ele.</p>
           <ol class="tour-steps reveal" data-tour-steps>
             <li data-at="0"><span>01</span><b>A fachada</b>Prédio moderno, com estacionamento próprio</li>
-            <li data-at="1.75"><span>02</span><b>A entrada</b>Recepção dos convidados com a identidade do Life</li>
-            <li data-at="3.3"><span>03</span><b>A recepção</b>Sala de estar acolhedora logo na chegada</li>
-            <li data-at="5.45"><span>04</span><b>O salão</b>Amplo, iluminado e com pé-direito alto</li>
-            <li data-at="8"><span>05</span><b>A cozinha gourmet</b>Equipada para o buffet trabalhar com conforto</li>
-            <li data-at="10.15"><span>06</span><b>O lazer</b>Sinuca, pebolim, fliperama e muito mais</li>
-            <li data-at="12.3"><span>07</span><b>O mezanino</b>Vista do salão e do espaço kids</li>
+            <li data-at="1.9"><span>02</span><b>A entrada</b>Recepção dos convidados com a identidade do Life</li>
+            <li data-at="3.6"><span>03</span><b>A recepção</b>Sala de estar acolhedora logo na chegada</li>
+            <li data-at="5.9"><span>04</span><b>O salão</b>Amplo, iluminado e com pé-direito alto</li>
+            <li data-at="8.6"><span>05</span><b>A cozinha gourmet</b>Equipada para o buffet trabalhar com conforto</li>
+            <li data-at="10.9"><span>06</span><b>O lazer</b>Sinuca, pebolim, fliperama e muito mais</li>
+            <li data-at="13.2"><span>07</span><b>O mezanino</b>Vista do salão e do espaço kids</li>
           </ol>
           <a class="btn btn-gold reveal" href="#contato">Agendar uma visita</a>
         </div>
@@ -290,7 +295,7 @@
         <li class="celeb reveal"><a href="#contato" data-evento="Aniversário"><img loading="lazy" src="assets/img/vogue-18-720.webp" width="720" height="900" alt="Aniversário de 18 anos com tema de revista, balões pretos e dourados"><span class="celeb-cap"><b>Aniversários</b><span>Do primeiro ano aos grandes marcos da vida.</span></span></a></li>
         <li class="celeb reveal"><a href="#contato" data-evento="Casamento"><img loading="lazy" src="assets/img/mesa-casamento-720.webp" width="720" height="960" alt="Mesa branca com arco dourado e arranjos de flores brancas"><span class="celeb-cap"><b>Casamentos e noivados</b><span>Recepções intimistas, só com quem importa.</span></span></a></li>
         <li class="celeb reveal"><a href="#contato" data-evento="Festa infantil"><img loading="lazy" src="assets/img/safari-720.webp" width="720" height="960" alt="Festa infantil com tema safári"><span class="celeb-cap"><b>Infantis</b><span>Temas encantadores e muito espaço para brincar.</span></span></a></li>
-        <li class="celeb reveal"><a href="#contato" data-evento="Chá ou batizado"><video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-revelacao-poster.webp" aria-label="Chá revelação com arco de balões rosa e azul"><source src="assets/video/filme-revelacao.mp4" type="video/mp4"></video><span class="celeb-cap"><b>Chás e batizados</b><span>Chá de bebê, revelação ou almoço em família.</span></span></a></li>
+        <li class="celeb reveal"><a href="#contato" data-evento="Chá ou batizado"><img loading="lazy" src="assets/img/cha-bebe.webp" width="900" height="1600" alt="Chá revelação com arco de balões rosa e azul e ursinho"><span class="celeb-cap"><b>Chás e batizados</b><span>Chá de bebê, revelação ou almoço em família.</span></span></a></li>
         <li class="celeb reveal"><a href="#contato" data-evento="Evento corporativo"><img loading="lazy" src="assets/img/salao-mesas-720.webp" width="720" height="960" alt="Salão com mesas postas para evento"><span class="celeb-cap"><b>Corporativos</b><span>Confraternizações e encontros com total privacidade.</span></span></a></li>
       </ul>
     </section>

@@ -75,6 +75,40 @@
     reveals.forEach(el => el.classList.add("is-in"));
   }
 
+  /* ---------- Abertura: fotos em alta resolução trocando suavemente ---------- */
+  const stage = $("[data-slides]");
+  if (stage) {
+    const slides = $$("img", stage);
+    const dots = $$("[data-slide-dots] li");
+    let cur = 0, timer = 0, visible = true;
+    const load = img => {
+      if (img.dataset.src) { img.src = img.dataset.src; img.removeAttribute("data-src"); }
+      return img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+    };
+    const go = async n => {
+      const next = slides[n];
+      await load(next); // só troca depois que a próxima foto está pronta: sem piscar nem travar
+      slides[cur].classList.remove("is-on");
+      next.classList.add("is-on");
+      dots.forEach((d, k) => { d.classList.toggle("is-on", k === n); d.classList.toggle("is-done", k < n); });
+      cur = n;
+      load(slides[(n + 1) % slides.length]);
+    };
+    const tick = () => go((cur + 1) % slides.length);
+    const start = () => { if (!timer && visible && !document.hidden) timer = setInterval(tick, 6000); };
+    const stop = () => { clearInterval(timer); timer = 0; };
+    if (!reduce && slides.length > 1) {
+      // a segunda foto só começa a baixar depois que a página terminou de carregar
+      window.addEventListener("load", () => { load(slides[1]); start(); }, { once: true });
+      document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(([en]) => { visible = en.isIntersecting; visible ? start() : stop(); }).observe(stage);
+      }
+    } else if (dots[0]) {
+      dots[0].classList.add("is-done");
+    }
+  }
+
   /* ---------- Avaliações do Google ---------- */
   const track = $("[data-reviews]");
   if (track && CONFIG.reviews.length) {
