@@ -75,77 +75,6 @@
     reveals.forEach(el => el.classList.add("is-in"));
   }
 
-  /* ---------- Passeio horizontal ---------- */
-  const track = $("[data-tour]");
-  if (track) {
-    const bar = $("[data-tour-bar]");
-    const prev = $("[data-tour-prev]");
-    const next = $("[data-tour-next]");
-    const step = () => {
-      const s = $(".scene", track);
-      return s ? s.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth;
-    };
-    const update = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      const p = max > 0 ? track.scrollLeft / max : 1;
-      const visible = track.clientWidth / track.scrollWidth;
-      bar.style.transform = `scaleX(${Math.min(1, visible + p * (1 - visible))})`;
-      prev.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft >= max - 2;
-    };
-    prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: reduce ? "auto" : "smooth" }));
-    next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: reduce ? "auto" : "smooth" }));
-    track.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    track.addEventListener("keydown", e => {
-      if (e.key === "ArrowRight") { e.preventDefault(); next.click(); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); prev.click(); }
-    });
-    // Arrastar com o mouse (no toque, a rolagem nativa já resolve)
-    let down = false, startX = 0, startLeft = 0, moved = false;
-    track.addEventListener("pointerdown", e => {
-      if (e.pointerType !== "mouse") return;
-      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
-      track.style.scrollSnapType = "none";
-    });
-    window.addEventListener("pointermove", e => {
-      if (!down) return;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) moved = true;
-      track.scrollLeft = startLeft - dx;
-    });
-    window.addEventListener("pointerup", () => {
-      if (!down) return;
-      down = false;
-      track.style.scrollSnapType = "";
-    });
-    track.addEventListener("click", e => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
-    track.addEventListener("dragstart", e => e.preventDefault());
-    update();
-  }
-
-  /* ---------- Prévia flutuante na lista de eventos ---------- */
-  const preview = $("[data-event-preview]");
-  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (preview && canHover && !reduce) {
-    const img = $("img", preview);
-    let x = 0, y = 0, cx = 0, cy = 0, raf = 0;
-    const loop = () => {
-      cx += (x - cx) * 0.16; cy += (y - cy) * 0.16;
-      preview.style.left = cx + "px"; preview.style.top = cy + "px";
-      raf = Math.abs(x - cx) + Math.abs(y - cy) > 0.3 ? requestAnimationFrame(loop) : 0;
-    };
-    const list = $("[data-events]");
-    list.addEventListener("pointermove", e => {
-      x = e.clientX + 170; y = e.clientY;
-      if (!raf) raf = requestAnimationFrame(loop);
-    });
-    $$(".event", list).forEach(ev => {
-      ev.addEventListener("pointerenter", () => { img.src = ev.dataset.img; preview.classList.add("is-visible"); });
-      ev.addEventListener("pointerleave", () => preview.classList.remove("is-visible"));
-    });
-  }
-
   /* ---------- Depoimentos ---------- */
   const row = $("[data-reviews]");
   if (row && CONFIG.reviews.length) {
@@ -184,13 +113,14 @@
       if (!nome) return fail(form.nome, "Escreva seu nome para continuar.");
       if (!d.evento) return fail(form.evento, "Escolha o tipo de evento.");
       const n = Number(d.convidados);
-      if (d.convidados && (!Number.isFinite(n) || n < 1 || n > 60)) return fail(form.convidados, "O espaço recebe de 1 a 60 convidados.");
+      if (d.convidados && (!Number.isFinite(n) || n < 1 || n > 80)) return fail(form.convidados, "O espaço recebe de 1 a 80 convidados.");
       err.hidden = true;
 
       const data = d.data ? new Date(d.data + "T12:00").toLocaleDateString("pt-BR") : "a combinar";
       const msg = [
         `Olá! Meu nome é ${nome} e vi o site do Life Eventos.`,
         `Quero fazer: ${d.evento}`,
+        d.pacote ? `Pacote: ${d.pacote}` : "",
         `Data: ${data}`,
         d.convidados ? `Convidados: ${d.convidados}` : "",
         d.obs && d.obs.trim() ? `Obs.: ${d.obs.trim()}` : "",
@@ -201,14 +131,34 @@
 
     // Clicar num tipo de evento já escolhe a opção no formulário
     $$("[data-evento]").forEach(a => a.addEventListener("click", () => { form.evento.value = a.dataset.evento; }));
+    $$("[data-pacote]").forEach(a => a.addEventListener("click", () => { form.pacote.value = a.dataset.pacote; }));
   }
 
-  /* ---------- Lightbox da galeria ---------- */
+  /* ---------- Vídeos: tocam sem som só quando aparecem na tela ---------- */
+  const autoVideos = $$("video[data-autoplay]");
+  if (autoVideos.length) {
+    const play = v => { const p = v.play(); if (p) p.catch(() => {}); };
+    if (reduce || !("IntersectionObserver" in window)) {
+      autoVideos.forEach(v => v.removeAttribute("loop"));
+    } else {
+      const vio = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          const v = en.target;
+          if (en.isIntersecting) { if (v.preload === "none") v.preload = "auto"; play(v); }
+          else v.pause();
+        });
+      }, { threshold: 0.25 });
+      autoVideos.forEach(v => vio.observe(v));
+    }
+  }
+
+  /* ---------- Visualizador de fotos e vídeos ---------- */
   const box = $("[data-lightbox]");
-  const photos = $$(".photo");
-  if (box && photos.length) {
+  if (box) {
     const img = $("img", box);
+    const vid = $("video", box);
     const cap = $("figcaption", box);
+    const photos = $$(".photo");
     let current = 0, lastFocus = null;
     const show = i => {
       current = (i + photos.length) % photos.length;
@@ -216,18 +166,29 @@
       const alt = $("img", p).alt;
       img.src = p.dataset.full; img.alt = alt; cap.textContent = alt;
     };
-    const open = i => {
+    const openBox = isVideo => {
       lastFocus = document.activeElement;
-      show(i); box.hidden = false;
+      box.classList.toggle("is-video", isVideo);
+      img.hidden = isVideo; vid.hidden = !isVideo;
+      box.hidden = false;
       document.body.style.overflow = "hidden";
       $(".lightbox-close", box).focus();
     };
     const close = () => {
       box.hidden = true;
+      vid.pause(); vid.removeAttribute("src"); vid.load();
       document.body.style.overflow = "";
       if (lastFocus) lastFocus.focus();
     };
-    photos.forEach((p, i) => p.addEventListener("click", () => open(i)));
+    photos.forEach((p, i) => p.addEventListener("click", () => { show(i); openBox(false); }));
+    $$("[data-film]").forEach(b => b.addEventListener("click", () => {
+      const c = $(".film-cap b", b);
+      cap.textContent = c ? c.textContent : "";
+      vid.poster = b.dataset.poster || "";
+      vid.src = b.dataset.film;
+      openBox(true);
+      const p = vid.play(); if (p) p.catch(() => {});
+    }));
     $(".lightbox-close", box).addEventListener("click", close);
     $(".prev", box).addEventListener("click", () => show(current - 1));
     $(".next", box).addEventListener("click", () => show(current + 1));
@@ -236,18 +197,20 @@
     let sx = null;
     box.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
     box.addEventListener("touchend", e => {
-      if (sx === null) return;
+      if (sx === null || box.classList.contains("is-video")) return;
       const dx = e.changedTouches[0].clientX - sx;
       if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
       sx = null;
     });
     document.addEventListener("keydown", e => {
       if (box.hidden) return;
+      const isVideo = box.classList.contains("is-video");
       if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") show(current - 1);
-      if (e.key === "ArrowRight") show(current + 1);
-      if (e.key === "Tab") { // mantém o foco dentro do lightbox
-        const f = $$("button", box); const first = f[0], last = f[f.length - 1];
+      if (!isVideo && e.key === "ArrowLeft") show(current - 1);
+      if (!isVideo && e.key === "ArrowRight") show(current + 1);
+      if (e.key === "Tab") { // mantém o foco dentro do visualizador
+        const f = $$("button, video", box).filter(el => !el.hidden && el.offsetParent !== null);
+        const first = f[0], last = f[f.length - 1];
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }

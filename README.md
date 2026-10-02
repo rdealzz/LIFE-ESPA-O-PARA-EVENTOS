@@ -9,7 +9,8 @@ Site estático (HTML, CSS e JavaScript puro), sem build e sem dependências.
 index.html            página principal
 404.html              página de "não encontrado"
 assets/css/style.css  estilos (tema claro + modo escuro)
-assets/js/main.js     interações (tema, menu, carrossel, galeria, formulário)
+assets/js/main.js     interações (menu, vídeos, galeria, formulário)
+assets/video/         vídeos do site
 assets/img/           fotos, logo e ícones
 robots.txt, sitemap.xml, site.webmanifest
 .github/workflows/deploy.yml  publicação automática no GitHub Pages
@@ -29,13 +30,12 @@ python3 -m http.server 8000
   mostra só a nota e o link para o Google.
 - **Cores:** variáveis no topo de `assets/css/style.css` (`:root` para o tema claro,
   `[data-theme="dark"]` para o escuro).
-- **Fotos:** substitua os arquivos em `assets/img/` mantendo os nomes, ou troque os
-  caminhos no `index.html`. Prefira `.webp` com até ~1400 px de largura.
-
-## Modo escuro
-
-O site abre no tema do sistema do visitante. O botão de lua/sol no topo alterna
-entre claro e escuro, e a escolha fica salva no navegador.
+- **Fotos:** ficam em `assets/img/`, cada uma em duas versões: `nome.webp` (até 1600 px)
+  e `nome-800.webp` (para miniaturas). Para trocar, substitua os dois arquivos mantendo os nomes.
+- **Vídeos:** ficam em `assets/video/` (`.mp4` H.264, sem som, até ~3 MB), com a capa em
+  `assets/img/*-poster.webp`. Eles tocam sozinhos, sem som, só quando aparecem na tela.
+- **Pacotes e condições:** valores e regras estão no `index.html`, nas seções
+  `#pacotes` e `#condicoes`.
 
 ## Publicar
 
