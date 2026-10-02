@@ -210,20 +210,7 @@
     }));
   }
 
-  /* ---------- Mapa: carrega só quando aparece e a rolagem para (evita travar) ---------- */
-  const mapBox = $(".map-box");
-  const firstMap = $("#panel-mapa iframe[data-src]");
-  if (mapBox && firstMap) {
-    let idle = 0, seen = false;
-    const loadMap = () => { if (firstMap.dataset.src) { firstMap.src = firstMap.dataset.src; firstMap.removeAttribute("data-src"); } };
-    const wait = () => { clearTimeout(idle); idle = setTimeout(() => { if (seen) { loadMap(); window.removeEventListener("scroll", wait); } }, 450); };
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(([en], obs) => { if (en.isIntersecting) { seen = true; wait(); obs.disconnect(); } }, { rootMargin: "200px 0px" }).observe(mapBox);
-      window.addEventListener("scroll", wait, { passive: true });
-    } else loadMap();
-  }
-
-  /* ---------- Mapa: alterna entre mapa e Street View ---------- */
+  /* ---------- Local: alterna entre a fachada e o mapa (o mapa só carrega quando é aberto) ---------- */
   const tabs = $$("[data-map-tab]");
   if (tabs.length) {
     const select = tab => {
