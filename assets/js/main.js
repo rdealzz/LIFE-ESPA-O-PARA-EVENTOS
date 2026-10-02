@@ -285,6 +285,20 @@
     }
   }
 
+  /* ---------- Galeria: "Ver mais fotos" ---------- */
+  const more = $("[data-more]");
+  if (more) {
+    const grid = $(".gallery-grid");
+    const total = $$(".photo", grid).length;
+    if (total <= 12) more.parentElement.hidden = true;
+    else more.textContent = `Ver mais fotos (${total - 12})`;
+    more.addEventListener("click", () => {
+      grid.classList.add("is-open");
+      $$(".photo:nth-child(n+13)", grid).forEach(el => el.classList.add("is-in"));
+      const first = $(".photo:nth-child(13)", grid); if (first) first.focus();
+    });
+  }
+
   /* ---------- Visualizador de fotos e vídeos ---------- */
   const box = $("[data-lightbox]");
   if (box) {
