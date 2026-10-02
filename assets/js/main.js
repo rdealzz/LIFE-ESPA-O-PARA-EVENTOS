@@ -9,9 +9,9 @@
   /* ---------- Configuração fácil de editar ---------- */
   const CONFIG = {
     whatsapp: "5541999813709",
-    // Cole aqui depoimentos REAIS do Google. Enquanto a lista estiver vazia,
-    // a seção mostra só a nota e o link para as avaliações.
-    // Exemplo: { text: "Espaço lindo e novinho...", name: "Maria S.", event: "Aniversário" }
+    // Cole aqui avaliações REAIS do Google (copie o texto como está no Google).
+    // Enquanto a lista estiver vazia, a seção mostra só a nota e o botão para o Google.
+    // Exemplo: { name: "Maria S.", when: "há 2 meses", text: "Espaço lindo e novinho..." }
     reviews: []
   };
 
@@ -75,17 +75,99 @@
     reveals.forEach(el => el.classList.add("is-in"));
   }
 
-  /* ---------- Depoimentos ---------- */
-  const row = $("[data-reviews]");
-  if (row && CONFIG.reviews.length) {
-    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    row.innerHTML = CONFIG.reviews.map(r => `
+  /* ---------- Avaliações do Google ---------- */
+  const track = $("[data-reviews]");
+  if (track && CONFIG.reviews.length) {
+    const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    track.innerHTML = CONFIG.reviews.map(r => `
       <figure class="review">
-        <div class="stars" aria-label="5 de 5 estrelas">★★★★★</div>
+        <div class="review-top">
+          <span class="review-avatar" aria-hidden="true">${esc(r.name.trim().charAt(0).toUpperCase())}</span>
+          <cite>${esc(r.name)}${r.when ? `<small>${esc(r.when)} · Google</small>` : ""}</cite>
+        </div>
+        <div class="stars" aria-label="${r.stars || 5} de 5 estrelas">${"★".repeat(r.stars || 5)}</div>
         <blockquote>“${esc(r.text)}”</blockquote>
-        <cite>${esc(r.name)}${r.event ? ", " + esc(r.event) : ""}</cite>
       </figure>`).join("");
-    row.hidden = false;
+    track.hidden = false;
+    const nav = $("[data-review-nav]");
+    if (nav && CONFIG.reviews.length > 1) {
+      nav.hidden = false;
+      const by = dir => {
+        const card = $(".review", track);
+        track.scrollBy({ left: dir * (card ? card.getBoundingClientRect().width + 19 : track.clientWidth), behavior: reduce ? "auto" : "smooth" });
+      };
+      $("[data-review-prev]").addEventListener("click", () => by(-1));
+      $("[data-review-next]").addEventListener("click", () => by(1));
+    }
+  }
+
+  /* ---------- Números que contam ao aparecer ---------- */
+  const counters = $$("[data-count]");
+  if (counters.length && !reduce && "IntersectionObserver" in window) {
+    const cio = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target, end = Number(el.dataset.count), pre = el.dataset.prefix || "";
+        const t0 = performance.now(), dur = 1400;
+        const tick = now => {
+          const k = Math.min(1, (now - t0) / dur), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
+          el.textContent = pre + v;
+          if (k < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        cio.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(el => cio.observe(el));
+  }
+
+  /* ---------- Tour da chegada: ambientes acendem junto com o vídeo ---------- */
+  const tour = $("video[data-tour]");
+  const steps = $$("[data-tour-steps] li");
+  if (tour && steps.length) {
+    const bar = $("[data-tour-bar]");
+    const marks = steps.map(li => Number(li.dataset.at));
+    let last = -1;
+    const sync = () => {
+      const t = tour.currentTime;
+      let i = 0;
+      marks.forEach((m, k) => { if (t >= m) i = k; });
+      if (i !== last) { steps.forEach((li, k) => li.classList.toggle("is-active", k === i)); last = i; }
+      if (bar && tour.duration) bar.style.transform = `scaleX(${t / tour.duration})`;
+      if (!tour.paused) requestAnimationFrame(sync);
+    };
+    tour.addEventListener("play", () => requestAnimationFrame(sync));
+    tour.addEventListener("seeked", sync);
+    steps[0].classList.add("is-active");
+    steps.forEach((li, k) => li.addEventListener("click", () => {
+      steps.forEach((el, j) => el.classList.toggle("is-active", j === k)); last = k;
+      tour.currentTime = marks[k] + 0.05;
+      const p = tour.play(); if (p) p.catch(() => {});
+    }));
+  }
+
+  /* ---------- Mapa: alterna entre mapa e Street View ---------- */
+  const tabs = $$("[data-map-tab]");
+  if (tabs.length) {
+    const select = tab => {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = $("#" + t.getAttribute("aria-controls"));
+        panel.hidden = !on;
+        const frame = $("iframe[data-src]", panel);
+        if (on && frame) { frame.src = frame.dataset.src; frame.removeAttribute("data-src"); }
+      });
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => select(t));
+      t.addEventListener("keydown", e => {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        const n = tabs[(i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
+        select(n); n.focus();
+      });
+    });
   }
   const year = $("[data-year]");
   if (year) year.textContent = new Date().getFullYear();
@@ -149,6 +231,7 @@
         });
       }, { threshold: 0.25 });
       autoVideos.forEach(v => vio.observe(v));
+      autoVideos.filter(v => v.hasAttribute("data-priority")).forEach(play);
     }
   }
 
@@ -157,14 +240,22 @@
   if (box) {
     const img = $("img", box);
     const vid = $("video", box);
-    const cap = $("figcaption", box);
+    const cap = $("[data-lb-caption]", box);
+    const count = $("[data-lb-count]", box);
     const photos = $$(".photo");
     let current = 0, lastFocus = null;
     const show = i => {
       current = (i + photos.length) % photos.length;
       const p = photos[current];
       const alt = $("img", p).alt;
-      img.src = p.dataset.full; img.alt = alt; cap.textContent = alt;
+      img.classList.add("is-loading");
+      const pre = new Image();
+      pre.onload = pre.onerror = () => { img.src = pre.src; img.alt = alt; img.classList.remove("is-loading"); };
+      pre.src = p.dataset.full;
+      cap.textContent = alt;
+      count.textContent = `${current + 1} / ${photos.length}`;
+      // já carrega a próxima para a troca ser instantânea
+      new Image().src = photos[(current + 1) % photos.length].dataset.full;
     };
     const openBox = isVideo => {
       lastFocus = document.activeElement;
@@ -182,8 +273,8 @@
     };
     photos.forEach((p, i) => p.addEventListener("click", () => { show(i); openBox(false); }));
     $$("[data-film]").forEach(b => b.addEventListener("click", () => {
-      const c = $(".film-cap b", b);
-      cap.textContent = c ? c.textContent : "";
+      cap.textContent = b.dataset.title || "";
+      count.textContent = "";
       vid.poster = b.dataset.poster || "";
       vid.src = b.dataset.film;
       openBox(true);

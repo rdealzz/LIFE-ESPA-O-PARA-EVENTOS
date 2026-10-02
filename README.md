@@ -25,14 +25,17 @@ python3 -m http.server 8000
 
 ## O que editar com frequência
 
-- **WhatsApp e depoimentos:** no topo de `assets/js/main.js`, no objeto `CONFIG`.
-  Cole em `reviews` apenas avaliações reais do Google; com a lista vazia a seção
-  mostra só a nota e o link para o Google.
+- **WhatsApp e avaliações:** no topo de `assets/js/main.js`, no objeto `CONFIG`.
+  Cole em `reviews` apenas avaliações reais do Google, no formato
+  `{ name: "Maria S.", when: "há 2 meses", text: "..." }`. Com a lista vazia, a seção
+  mostra só a nota e o botão "Ler todas as avaliações".
+- **Street View da fachada:** em `index.html`, seção `#local`. Troque as coordenadas
+  (`cbll`) e a direção da câmera (`cbp`) pelos valores do link do Street View.
 - **Cores:** variáveis no topo de `assets/css/style.css` (`:root` para o tema claro,
   `[data-theme="dark"]` para o escuro).
-- **Fotos:** ficam em `assets/img/`, cada uma em duas versões: `nome.webp` (até 1600 px)
-  e `nome-800.webp` (para miniaturas). Para trocar, substitua os dois arquivos mantendo os nomes.
-- **Vídeos:** ficam em `assets/video/` (`.mp4` H.264, sem som, até ~3 MB), com a capa em
+- **Fotos:** ficam em `assets/img/`, cada uma em duas versões: `nome.webp` (1200 × 1600)
+  e `nome-720.webp` (para miniaturas). Use só fotos com pelo menos 1200 px de largura. Para trocar, substitua os dois arquivos mantendo os nomes.
+- **Vídeos:** ficam em `assets/video/` (`.mp4` H.264, 576 × 1024, sem som, até ~3 MB), com a capa em
   `assets/img/*-poster.webp`. Eles tocam sozinhos, sem som, só quando aparecem na tela.
 - **Pacotes e condições:** valores e regras estão no `index.html`, nas seções
   `#pacotes` e `#condicoes`.

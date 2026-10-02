@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&family=Pinyon+Script&display=swap">
-  <link rel="preload" as="image" href="assets/img/destaques-poster.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/img/abertura-poster.webp" type="image/webp">
   <link rel="stylesheet" href="assets/css/style.css">
 
   <script type="application/ld+json">
@@ -65,12 +65,12 @@
       </a>
 
       <nav class="menu" id="menu" aria-label="Seções">
+        <a href="#chegada">A chegada</a>
         <a href="#espaco">O espaço</a>
         <a href="#filmes">Filmes</a>
-        <a href="#celebracoes">Celebrações</a>
         <a href="#pacotes">Pacotes</a>
         <a href="#galeria">Galeria</a>
-        <a href="#condicoes">Condições</a>
+        <a href="#local">Localização</a>
         <a class="btn btn-solid menu-cta" href="#contato">Consultar data</a>
       </nav>
 
@@ -87,40 +87,46 @@
 
     <!-- ===================== ABERTURA ===================== -->
     <section class="hero" id="inicio" aria-labelledby="t-hero">
-      <div class="hero-text">
-        <p class="eyebrow reveal">Capão Raso &middot; Curitiba</p>
-        <h1 id="t-hero" class="hero-title reveal">
-          O cenário perfeito<br>
-          para <em>momentos<br>inesquecíveis.</em>
-        </h1>
-        <p class="hero-lead reveal">Um espaço moderno, exclusivo e completo, pensado em cada detalhe para receber até 80 convidados com conforto e elegância.</p>
-        <div class="hero-actions reveal">
-          <a class="btn btn-solid" href="#contato">Consultar disponibilidade</a>
-          <a class="btn btn-ghost" href="#pacotes">Ver pacotes</a>
-        </div>
-        <a class="rating-badge reveal" href="https://www.google.com/maps/search/?api=1&query=Life+Eventos+2023+Curitiba" target="_blank" rel="noopener">
-          <span class="rating-num">4,9</span>
-          <span class="rating-meta"><span class="stars" aria-hidden="true">★★★★★</span><span>28 avaliações no Google</span></span>
-        </a>
-      </div>
-
-      <div class="hero-media">
-        <svg class="hero-hex" viewBox="0 0 200 200" aria-hidden="true">
+      <div class="hero-stage" aria-hidden="true">
+        <video class="hero-bg" data-autoplay data-priority muted loop playsinline preload="auto" poster="assets/img/abertura-poster.webp">
+          <source src="assets/video/abertura.mp4" type="video/mp4">
+        </video>
+        <svg class="hero-hex" viewBox="0 0 200 200">
           <path d="M100 6 L181 53 L181 147 L100 194 L19 147 L19 53Z"/>
           <path d="M100 18 L172 58 L178 140 L104 186 L26 150 L22 62Z"/>
         </svg>
-        <figure class="hero-video">
-          <video data-autoplay muted loop playsinline preload="metadata" poster="assets/img/destaques-poster.webp" aria-label="Destaques de uma festa de 15 anos no Life">
-            <source src="assets/video/destaques.mp4" type="video/mp4">
-          </video>
-          <button class="hero-play" type="button" data-film="assets/video/destaques.mp4" data-poster="assets/img/destaques-poster.webp" aria-label="Assistir aos destaques em tela cheia">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
-          </button>
-        </figure>
-        <figure class="hero-photo" aria-hidden="true">
-          <img src="assets/img/arco-dourado-800.webp" alt="" width="600" height="800">
-        </figure>
+        <span class="hero-chip chip-a"><b>até 80</b> convidados</span>
+        <span class="hero-chip chip-b"><b>★ 4,9</b> no Google</span>
       </div>
+
+      <div class="hero-text">
+        <p class="eyebrow hero-in" style="--i:0">Capão Raso &middot; Curitiba</p>
+        <h1 id="t-hero" class="hero-title">
+          <span class="line"><span class="hero-in" style="--i:1">O cenário perfeito</span></span>
+          <span class="line"><span class="hero-in" style="--i:2">para <em>momentos</em></span></span>
+          <span class="line"><span class="hero-in" style="--i:3"><em>inesquecíveis.</em></span></span>
+        </h1>
+        <p class="hero-lead hero-in" style="--i:4">Um espaço moderno e exclusivo, pensado em cada detalhe para receber até 80 convidados com conforto e elegância.</p>
+        <div class="hero-actions hero-in" style="--i:5">
+          <a class="btn btn-solid" href="#contato">Consultar disponibilidade</a>
+          <button class="btn btn-ghost" type="button" data-film="assets/video/abertura.mp4" data-poster="assets/img/abertura-poster.webp" data-title="O Life em 18 segundos">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+            Assistir ao filme
+          </button>
+        </div>
+
+        <nav class="hero-index hero-in" style="--i:6" aria-label="Descubra o Life">
+          <a href="#chegada"><span>01</span>A chegada</a>
+          <a href="#espaco"><span>02</span>Os ambientes</a>
+          <a href="#filmes"><span>03</span>Filmes</a>
+          <a href="#pacotes"><span>04</span>Pacotes</a>
+        </nav>
+      </div>
+
+      <a class="scroll-cue" href="#chegada" aria-label="Rolar para conhecer o espaço">
+        <span>Role para descobrir</span>
+        <i aria-hidden="true"></i>
+      </a>
     </section>
 
     <!-- Faixa com tipos de evento -->
@@ -136,75 +142,88 @@
       <p class="eyebrow reveal">Bem-vindo ao Life</p>
       <h2 id="t-manifesto" class="manifesto-text reveal">Uma estrutura completa e sofisticada, onde cada celebração ganha <em>o cuidado e o brilho</em> que merece.</h2>
       <dl class="stats reveal">
-        <div><dt>Convidados</dt><dd>até 80</dd></div>
+        <div><dt>Convidados</dt><dd data-count="80" data-prefix="até ">até 80</dd></div>
         <div><dt>Nota no Google</dt><dd>4,9</dd></div>
         <div><dt>Espaço</dt><dd>exclusivo</dd></div>
-        <div><dt>Vagas</dt><dd>7</dd></div>
+        <div><dt>Vagas no local</dt><dd data-count="7">7</dd></div>
       </dl>
     </section>
 
-    <!-- ===================== O ESPAÇO ===================== -->
+    <!-- ===================== A CHEGADA ===================== -->
+    <section class="dark arrival" id="chegada" aria-labelledby="t-chegada">
+      <div class="section arrival-inner">
+        <div class="arrival-media reveal">
+          <video data-autoplay data-tour muted loop playsinline preload="none" poster="assets/img/filme-chegada-poster.webp" aria-label="Tour da chegada ao Life, da fachada ao mezanino">
+            <source src="assets/video/filme-chegada.mp4" type="video/mp4">
+          </video>
+          <span class="arrival-progress" aria-hidden="true"><i data-tour-bar></i></span>
+          <button class="arrival-play" type="button" data-film="assets/video/filme-chegada.mp4" data-poster="assets/img/filme-chegada-poster.webp" data-title="Sua chegada ao Life" aria-label="Assistir ao tour em tela cheia">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          </button>
+        </div>
+        <div class="arrival-text">
+          <p class="eyebrow reveal">A chegada</p>
+          <h2 id="t-chegada" class="reveal">Sinta como é <em>chegar ao Life.</em></h2>
+          <p class="section-lead reveal">Da fachada ao mezanino, faça um passeio pelo espaço como se estivesse aqui. Cada ambiente acende enquanto o vídeo passa por ele.</p>
+          <ol class="tour-steps reveal" data-tour-steps>
+            <li data-at="0"><span>01</span><b>A fachada</b>Prédio moderno, com estacionamento próprio</li>
+            <li data-at="1.75"><span>02</span><b>A entrada</b>Recepção dos convidados com a identidade do Life</li>
+            <li data-at="3.3"><span>03</span><b>A recepção</b>Sala de estar acolhedora logo na chegada</li>
+            <li data-at="5.45"><span>04</span><b>O salão</b>Amplo, iluminado e com pé-direito alto</li>
+            <li data-at="8"><span>05</span><b>A cozinha gourmet</b>Equipada para o buffet trabalhar com conforto</li>
+            <li data-at="10.15"><span>06</span><b>O lazer</b>Sinuca, pebolim, fliperama e muito mais</li>
+            <li data-at="12.3"><span>07</span><b>O mezanino</b>Vista do salão e do espaço kids</li>
+          </ol>
+          <a class="btn btn-gold reveal" href="#contato">Agendar uma visita</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OS AMBIENTES ===================== -->
     <section class="section space" id="espaco" aria-labelledby="t-espaco">
       <div class="section-head center">
-        <p class="eyebrow reveal">O espaço</p>
-        <h2 id="t-espaco" class="reveal">Ambientes pensados <em>para receber bem.</em></h2>
+        <p class="eyebrow reveal">Os ambientes</p>
+        <h2 id="t-espaco" class="reveal">Pensados para <em>receber bem.</em></h2>
       </div>
 
       <article class="room">
-        <div class="room-media">
-          <figure class="room-main reveal"><img loading="lazy" src="assets/img/salao-festa.webp" srcset="assets/img/salao-festa-800.webp 800w, assets/img/salao-festa.webp 1200w" sizes="(max-width: 860px) 90vw, 40vw" width="1200" height="1600" alt="Salão principal com mesas redondas e toalhas douradas"></figure>
-          <figure class="room-detail reveal"><img loading="lazy" src="assets/img/salao-mesas-800.webp" width="600" height="800" alt="Mesas postas com toalhas adamascadas"></figure>
+        <div class="room-media pair">
+          <figure class="reveal"><img loading="lazy" src="assets/img/salao-festa-720.webp" srcset="assets/img/salao-festa-720.webp 720w, assets/img/salao-festa.webp 1200w" sizes="(max-width: 860px) 46vw, 28vw" width="1200" height="1600" alt="Salão principal com mesas redondas e toalhas douradas"></figure>
+          <figure class="reveal"><img loading="lazy" src="assets/img/salao-mesas-720.webp" srcset="assets/img/salao-mesas-720.webp 720w, assets/img/salao-mesas.webp 1200w" sizes="(max-width: 860px) 46vw, 28vw" width="1200" height="1600" alt="Mesas postas com toalhas adamascadas"></figure>
         </div>
         <div class="room-text reveal">
           <span class="room-num">01</span>
           <h3>Salão principal</h3>
           <p>Amplo e iluminado, com pé-direito alto e mezanino climatizado. Comporta com elegância mesas redondas, pista e a mesa principal do seu evento.</p>
+          <ul class="room-tags"><li>Até 80 convidados</li><li>Pé-direito alto</li><li>Mezanino</li></ul>
         </div>
       </article>
 
       <article class="room reverse">
         <div class="room-media">
-          <figure class="room-main reveal"><img loading="lazy" src="assets/img/cozinha-gourmet.webp" srcset="assets/img/cozinha-gourmet-800.webp 800w, assets/img/cozinha-gourmet.webp 1280w" sizes="(max-width: 860px) 90vw, 45vw" width="1280" height="960" alt="Cozinha gourmet com churrasqueira, bancada de madeira e eletrodomésticos em inox"></figure>
+          <figure class="room-video reveal">
+            <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-cozinha-poster.webp" aria-label="Cozinha gourmet"><source src="assets/video/filme-cozinha.mp4" type="video/mp4"></video>
+          </figure>
         </div>
         <div class="room-text reveal">
           <span class="room-num">02</span>
           <h3>Cozinha gourmet</h3>
-          <p>Moderna e totalmente equipada: churrasqueira, fogão por indução, airfryer, dois fornos elétricos, micro-ondas e duas geladeiras à disposição da sua equipe.</p>
+          <p>Moderna e totalmente equipada para a sua equipe ou buffet trabalhar com tranquilidade.</p>
+          <ul class="room-tags"><li>Churrasqueira</li><li>Fogão por indução</li><li>Airfryer</li><li>2 fornos elétricos</li><li>Micro-ondas</li><li>2 geladeiras</li></ul>
         </div>
       </article>
 
       <article class="room">
         <div class="room-media">
-          <figure class="room-main reveal"><img loading="lazy" src="assets/img/sinuca.webp" srcset="assets/img/sinuca-800.webp 800w, assets/img/sinuca.webp 852w" sizes="(max-width: 860px) 90vw, 40vw" width="852" height="1280" alt="Mesa de sinuca sob luminárias pendentes"></figure>
-          <figure class="room-detail reveal"><img loading="lazy" src="assets/img/jogos-amigos-800.webp" width="600" height="800" alt="Convidados jogando sinuca"></figure>
+          <figure class="room-video reveal">
+            <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-lazer-poster.webp" aria-label="Área de lazer com sinuca e pebolim"><source src="assets/video/filme-lazer.mp4" type="video/mp4"></video>
+          </figure>
         </div>
         <div class="room-text reveal">
           <span class="room-num">03</span>
-          <h3>Lazer para todas as idades</h3>
-          <p>Mesa de sinuca, pebolim, fliperama, máquina de basquete e sala com TV. Diversão garantida enquanto a festa acontece.</p>
-        </div>
-      </article>
-
-      <article class="room reverse">
-        <div class="room-media">
-          <figure class="room-main reveal"><img loading="lazy" src="assets/img/espaco-kids.webp" srcset="assets/img/espaco-kids-800.webp 800w, assets/img/espaco-kids.webp 1280w" sizes="(max-width: 860px) 90vw, 45vw" width="1280" height="720" alt="Brinquedão e espaço baby com escorregador e tatame"></figure>
-        </div>
-        <div class="room-text reveal">
-          <span class="room-num">04</span>
-          <h3>Espaço kids</h3>
-          <p>Brinquedão e espaço baby em uma área segura e visível, para os pequenos brincarem e os pais aproveitarem com tranquilidade.</p>
-        </div>
-      </article>
-
-      <article class="room">
-        <div class="room-media">
-          <figure class="room-main reveal"><img loading="lazy" src="assets/img/recepcao.webp" srcset="assets/img/recepcao-800.webp 800w, assets/img/recepcao.webp 1280w" sizes="(max-width: 860px) 90vw, 45vw" width="1280" height="960" alt="Recepção com poltronas e sofá"></figure>
-          <figure class="room-detail reveal"><img loading="lazy" src="assets/img/toalete-800.webp" width="600" height="800" alt="Toalete com bancada em granito e espelho redondo"></figure>
-        </div>
-        <div class="room-text reveal">
-          <span class="room-num">05</span>
-          <h3>Recepção e toaletes</h3>
-          <p>Recepção acolhedora para receber os convidados, toaletes com acabamento refinado e fraldário.</p>
+          <h3>Lazer e espaço kids</h3>
+          <p>Diversão para todas as idades enquanto a festa acontece, com o brinquedão e o espaço baby à vista dos pais.</p>
+          <ul class="room-tags"><li>Sinuca</li><li>Pebolim</li><li>Fliperama</li><li>Basquete</li><li>Sala com TV</li><li>Brinquedão</li><li>Espaço baby</li></ul>
         </div>
       </article>
     </section>
@@ -232,30 +251,30 @@
       <div class="section-head split">
         <div>
           <p class="eyebrow reveal">Filmes</p>
-          <h2 id="t-filmes" class="reveal">O Life <em>em movimento.</em></h2>
+          <h2 id="t-filmes" class="reveal">Celebrações <em>em movimento.</em></h2>
         </div>
-        <p class="section-lead reveal">Toque em um vídeo para assistir em tela cheia.</p>
+        <p class="section-lead reveal">Toque em um filme para assistir em tela cheia.</p>
       </div>
       <div class="film-row">
-        <button class="film reveal" type="button" data-film="assets/video/destaques.mp4" data-poster="assets/img/destaques-poster.webp">
+        <button class="film reveal" type="button" data-film="assets/video/destaques.mp4" data-poster="assets/img/destaques-poster.webp" data-title="Festa de 15 anos">
           <video data-autoplay muted loop playsinline preload="none" poster="assets/img/destaques-poster.webp"><source src="assets/video/destaques.mp4" type="video/mp4"></video>
           <span class="film-cap"><b>Festa de 15 anos</b>Cenário prata e branco</span>
         </button>
-        <button class="film reveal" type="button" data-film="assets/video/filme-baloes.mp4" data-poster="assets/img/filme-baloes-poster.webp">
+        <button class="film reveal" type="button" data-film="assets/video/filme-casamento.mp4" data-poster="assets/img/filme-casamento-poster.webp" data-title="Recepção de casamento">
+          <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-casamento-poster.webp"><source src="assets/video/filme-casamento.mp4" type="video/mp4"></video>
+          <span class="film-cap"><b>Recepção de casamento</b>Branco, dourado e flores</span>
+        </button>
+        <button class="film reveal" type="button" data-film="assets/video/filme-vogue.mp4" data-poster="assets/img/filme-vogue-poster.webp" data-title="18 anos">
+          <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-vogue-poster.webp"><source src="assets/video/filme-vogue.mp4" type="video/mp4"></video>
+          <span class="film-cap"><b>18 anos</b>Tema revista, preto e dourado</span>
+        </button>
+        <button class="film reveal" type="button" data-film="assets/video/filme-revelacao.mp4" data-poster="assets/img/filme-revelacao-poster.webp" data-title="Chá revelação">
+          <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-revelacao-poster.webp"><source src="assets/video/filme-revelacao.mp4" type="video/mp4"></video>
+          <span class="film-cap"><b>Chá revelação</b>Rosa, azul e muito afeto</span>
+        </button>
+        <button class="film reveal" type="button" data-film="assets/video/filme-baloes.mp4" data-poster="assets/img/filme-baloes-poster.webp" data-title="Jardim de borboletas">
           <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-baloes-poster.webp"><source src="assets/video/filme-baloes.mp4" type="video/mp4"></video>
           <span class="film-cap"><b>Jardim de borboletas</b>Arco de balões em tons pastel</span>
-        </button>
-        <button class="film reveal" type="button" data-film="assets/video/filme-quinze.mp4" data-poster="assets/img/filme-quinze-poster.webp">
-          <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-quinze-poster.webp"><source src="assets/video/filme-quinze.mp4" type="video/mp4"></video>
-          <span class="film-cap"><b>15 anos em marsala</b>Balões, flores e luz</span>
-        </button>
-        <button class="film reveal" type="button" data-film="assets/video/filme-neon.mp4" data-poster="assets/img/filme-neon-poster.webp">
-          <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-neon-poster.webp"><source src="assets/video/filme-neon.mp4" type="video/mp4"></video>
-          <span class="film-cap"><b>Detalhes que encantam</b>Neon e mesa do bolo</span>
-        </button>
-        <button class="film reveal" type="button" data-film="assets/video/filme-jogos.mp4" data-poster="assets/img/filme-jogos-poster.webp">
-          <video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-jogos-poster.webp"><source src="assets/video/filme-jogos.mp4" type="video/mp4"></video>
-          <span class="film-cap"><b>Área de lazer</b>Sinuca, pebolim e mais</span>
         </button>
       </div>
     </section>
@@ -267,12 +286,12 @@
         <h2 id="t-celebracoes" class="reveal">Cada história merece <em>o seu cenário.</em></h2>
       </div>
       <ul class="celeb-grid">
-        <li class="celeb reveal"><a href="#contato" data-evento="Festa de 15 anos"><img loading="lazy" src="assets/img/quinze-anos-800.webp" width="600" height="800" alt="Decoração de 15 anos com balões e neon"><span class="celeb-cap"><b>15 anos</b><span>A noite mais esperada, com espaço para pista, valsa e fotos.</span></span></a></li>
-        <li class="celeb reveal"><a href="#contato" data-evento="Aniversário"><img loading="lazy" src="assets/img/vogue-18-800.webp" width="600" height="750" alt="Aniversário de 18 anos com tema de revista, balões pretos e dourados"><span class="celeb-cap"><b>Aniversários</b><span>Do primeiro ano aos grandes marcos da vida.</span></span></a></li>
-        <li class="celeb reveal"><a href="#contato" data-evento="Casamento"><img loading="lazy" src="assets/img/mesa-casamento-800.webp" width="600" height="800" alt="Mesa branca com arco dourado e arranjos de flores brancas"><span class="celeb-cap"><b>Casamentos e noivados</b><span>Recepções intimistas, só com quem importa.</span></span></a></li>
-        <li class="celeb reveal"><a href="#contato" data-evento="Festa infantil"><img loading="lazy" src="assets/img/safari-800.webp" width="600" height="800" alt="Festa infantil com tema safári"><span class="celeb-cap"><b>Infantis</b><span>Temas encantadores e muito espaço para brincar.</span></span></a></li>
-        <li class="celeb reveal"><a href="#contato" data-evento="Chá ou batizado"><img loading="lazy" src="assets/img/cha-bebe-800.webp" width="450" height="800" alt="Chá de bebê com arco de balões rosa e azul e ursinho"><span class="celeb-cap"><b>Chás e batizados</b><span>Chá de bebê, revelação ou almoço em família.</span></span></a></li>
-        <li class="celeb reveal"><a href="#contato" data-evento="Evento corporativo"><img loading="lazy" src="assets/img/salao-amplo-800.webp" width="450" height="800" alt="Salão com mesas postas para evento"><span class="celeb-cap"><b>Corporativos</b><span>Confraternizações e encontros com total privacidade.</span></span></a></li>
+        <li class="celeb reveal"><a href="#contato" data-evento="Festa de 15 anos"><img loading="lazy" src="assets/img/quinze-anos-720.webp" width="720" height="960" alt="Decoração de 15 anos com balões e neon"><span class="celeb-cap"><b>15 anos</b><span>A noite mais esperada, com espaço para pista, valsa e fotos.</span></span></a></li>
+        <li class="celeb reveal"><a href="#contato" data-evento="Aniversário"><img loading="lazy" src="assets/img/vogue-18-720.webp" width="720" height="900" alt="Aniversário de 18 anos com tema de revista, balões pretos e dourados"><span class="celeb-cap"><b>Aniversários</b><span>Do primeiro ano aos grandes marcos da vida.</span></span></a></li>
+        <li class="celeb reveal"><a href="#contato" data-evento="Casamento"><img loading="lazy" src="assets/img/mesa-casamento-720.webp" width="720" height="960" alt="Mesa branca com arco dourado e arranjos de flores brancas"><span class="celeb-cap"><b>Casamentos e noivados</b><span>Recepções intimistas, só com quem importa.</span></span></a></li>
+        <li class="celeb reveal"><a href="#contato" data-evento="Festa infantil"><img loading="lazy" src="assets/img/safari-720.webp" width="720" height="960" alt="Festa infantil com tema safári"><span class="celeb-cap"><b>Infantis</b><span>Temas encantadores e muito espaço para brincar.</span></span></a></li>
+        <li class="celeb reveal"><a href="#contato" data-evento="Chá ou batizado"><video data-autoplay muted loop playsinline preload="none" poster="assets/img/filme-revelacao-poster.webp" aria-label="Chá revelação com arco de balões rosa e azul"><source src="assets/video/filme-revelacao.mp4" type="video/mp4"></video><span class="celeb-cap"><b>Chás e batizados</b><span>Chá de bebê, revelação ou almoço em família.</span></span></a></li>
+        <li class="celeb reveal"><a href="#contato" data-evento="Evento corporativo"><img loading="lazy" src="assets/img/salao-mesas-720.webp" width="720" height="960" alt="Salão com mesas postas para evento"><span class="celeb-cap"><b>Corporativos</b><span>Confraternizações e encontros com total privacidade.</span></span></a></li>
       </ul>
     </section>
 
@@ -334,32 +353,45 @@
           <p class="eyebrow reveal">Galeria</p>
           <h2 id="t-galeria" class="reveal">Celebrações <em>que já aconteceram aqui.</em></h2>
         </div>
-        <p class="section-lead reveal">Toque em uma foto para ampliar.</p>
+        <p class="section-lead reveal">Toque em uma foto para ver em tela cheia.</p>
       </div>
-      <div class="masonry">
-        <button class="photo reveal" type="button" data-full="assets/img/arco-dourado.webp"><img loading="lazy" src="assets/img/arco-dourado-800.webp" width="600" height="800" alt="Arco dourado com cortina branca, flores e pendentes"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/vogue-detalhe.webp"><img loading="lazy" src="assets/img/vogue-detalhe-800.webp" width="369" height="800" alt="Detalhe da mesa do bolo com suportes dourados"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/borboleta.webp"><img loading="lazy" src="assets/img/borboleta-800.webp" width="600" height="800" alt="Luminária de borboleta e balões em tons pastel"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/salao-festa.webp"><img loading="lazy" src="assets/img/salao-festa-800.webp" width="600" height="800" alt="Salão decorado com toalhas douradas"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/bosque.webp"><img loading="lazy" src="assets/img/bosque-800.webp" width="600" height="800" alt="Festa de um ano com tema bosque encantado"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/vogue-18.webp"><img loading="lazy" src="assets/img/vogue-18-800.webp" width="600" height="750" alt="Painel de 18 anos com tema de revista"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/mesa-casamento.webp"><img loading="lazy" src="assets/img/mesa-casamento-800.webp" width="600" height="800" alt="Mesa de doces com arco dourado e flores brancas"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/quinze-anos.webp"><img loading="lazy" src="assets/img/quinze-anos-800.webp" width="600" height="800" alt="Cenário de 15 anos com balões e neon"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/safari.webp"><img loading="lazy" src="assets/img/safari-800.webp" width="600" height="800" alt="Festa infantil com tema safári"></button>
-        <button class="photo reveal" type="button" data-full="assets/img/cha-bebe.webp"><img loading="lazy" src="assets/img/cha-bebe-800.webp" width="450" height="800" alt="Chá de bebê com ursinho e cubos BABY"></button>
+      <div class="gallery-grid">
+        <button class="photo tall reveal" type="button" data-full="assets/img/arco-dourado.webp"><img loading="lazy" src="assets/img/arco-dourado-720.webp" srcset="assets/img/arco-dourado-720.webp 720w, assets/img/arco-dourado.webp 1200w" sizes="(max-width: 860px) 92vw, 40vw" width="720" height="960" alt="Arco dourado com cortina branca, flores e pendentes"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/vogue-18.webp"><img loading="lazy" src="assets/img/vogue-18-720.webp" width="720" height="900" alt="Painel de 18 anos com tema de revista"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/borboleta.webp"><img loading="lazy" src="assets/img/borboleta-720.webp" width="720" height="960" alt="Luminária de borboleta e balões em tons pastel"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/mesa-casamento.webp"><img loading="lazy" src="assets/img/mesa-casamento-720.webp" width="720" height="960" alt="Mesa de doces com arco dourado e flores brancas"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/quinze-anos.webp"><img loading="lazy" src="assets/img/quinze-anos-720.webp" width="720" height="960" alt="Cenário de 15 anos com balões e neon"></button>
+        <button class="photo tall reveal" type="button" data-full="assets/img/salao-festa.webp"><img loading="lazy" src="assets/img/salao-festa-720.webp" srcset="assets/img/salao-festa-720.webp 720w, assets/img/salao-festa.webp 1200w" sizes="(max-width: 860px) 92vw, 40vw" width="720" height="960" alt="Salão decorado com toalhas douradas"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/jardim.webp"><img loading="lazy" src="assets/img/jardim-720.webp" width="720" height="960" alt="Festa com tema jardim encantado em tons pastel"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/bosque.webp"><img loading="lazy" src="assets/img/bosque-720.webp" width="720" height="960" alt="Festa de um ano com tema bosque encantado"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/safari.webp"><img loading="lazy" src="assets/img/safari-720.webp" width="720" height="960" alt="Festa infantil com tema safári"></button>
+        <button class="photo reveal" type="button" data-full="assets/img/salao-mesas.webp"><img loading="lazy" src="assets/img/salao-mesas-720.webp" width="720" height="960" alt="Mesas postas com toalhas adamascadas"></button>
       </div>
     </section>
 
     <!-- ===================== AVALIAÇÕES ===================== -->
-    <section class="section reviews" aria-labelledby="t-reviews">
-      <div class="reviews-card reveal">
-        <p class="eyebrow">Avaliações</p>
-        <h2 id="t-reviews">Quem celebrou aqui <em>recomenda.</em></h2>
-        <p class="big-rating"><span class="big-num">4,9</span><span class="big-meta"><span class="stars" aria-label="5 de 5 estrelas">★★★★★</span>28 avaliações no Google</span></p>
-        <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Life+Eventos+2023+Curitiba" target="_blank" rel="noopener">Ler avaliações no Google</a>
+    <section class="blush reviews-wrap" aria-labelledby="t-reviews">
+      <div class="section reviews">
+        <div class="reviews-head">
+          <div>
+            <p class="eyebrow reveal">Avaliações no Google</p>
+            <h2 id="t-reviews" class="reveal">Quem celebrou aqui <em>recomenda.</em></h2>
+          </div>
+          <div class="big-rating reveal">
+            <span class="big-num">4,9</span>
+            <span class="big-meta"><span class="stars" aria-label="5 de 5 estrelas">★★★★★</span>28 avaliações no Google</span>
+          </div>
+        </div>
+        <!-- Os depoimentos são montados a partir de assets/js/main.js (CONFIG.reviews). Use apenas avaliações reais do Google. -->
+        <div class="review-track" data-reviews hidden></div>
+        <div class="reviews-actions reveal">
+          <div class="review-nav" data-review-nav hidden>
+            <button type="button" class="round-btn" data-review-prev aria-label="Avaliação anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="round-btn" data-review-next aria-label="Próxima avaliação"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+          <a class="btn btn-solid" href="https://www.google.com/maps/search/?api=1&query=Life+Eventos+2023+R.+Olindo+Sequinel+275+Curitiba" target="_blank" rel="noopener">Ler todas as avaliações</a>
+        </div>
       </div>
-      <!-- Depoimentos reais entram aqui (edite em assets/js/main.js, CONFIG.reviews) -->
-      <div class="review-row" data-reviews hidden></div>
     </section>
 
     <!-- ===================== COMO RESERVAR ===================== -->
@@ -434,15 +466,27 @@
         <p class="eyebrow reveal">Como chegar</p>
         <h2 id="t-local" class="reveal">No coração <em>do Capão Raso.</em></h2>
         <address class="reveal">R. Olindo Sequinel, 275<br>Capão Raso, Curitiba, PR<br>CEP 81150-120</address>
-        <p class="near reveal">Estacionamento com 7 vagas e acesso amplo para o embarque e desembarque dos convidados.</p>
+        <p class="near reveal">Estacionamento com 7 vagas e acesso amplo para o embarque e desembarque dos convidados. Veja a fachada no Street View e chegue sem erro.</p>
         <div class="location-actions reveal">
-          <a class="btn btn-solid" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=R.+Olindo+Sequinel,+275,+Cap%C3%A3o+Raso,+Curitiba">Abrir no Google Maps</a>
+          <a class="btn btn-solid" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=R.+Olindo+Sequinel,+275,+Cap%C3%A3o+Raso,+Curitiba,+PR">Rotas no Google Maps</a>
           <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://waze.com/ul?q=R.%20Olindo%20Sequinel%20275%20Curitiba&navigate=yes">Abrir no Waze</a>
         </div>
       </div>
-      <div class="map reveal">
-        <iframe title="Mapa com a localização do Life Eventos" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=R.%20Olindo%20Sequinel%2C%20275%2C%20Cap%C3%A3o%20Raso%2C%20Curitiba&z=15&output=embed"></iframe>
+      <div class="map-box reveal">
+        <div class="map-tabs" role="tablist" aria-label="Tipo de mapa">
+          <button type="button" role="tab" id="tab-mapa" aria-selected="true" aria-controls="panel-mapa" data-map-tab>Mapa</button>
+          <button type="button" role="tab" id="tab-rua" aria-selected="false" aria-controls="panel-rua" tabindex="-1" data-map-tab>Fachada · Street View</button>
+        </div>
+        <div class="map" id="panel-mapa" role="tabpanel" aria-labelledby="tab-mapa">
+          <iframe title="Mapa com a localização do Life Eventos" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=R.%20Olindo%20Sequinel%2C%20275%2C%20Cap%C3%A3o%20Raso%2C%20Curitiba&z=16&output=embed"></iframe>
+        </div>
+        <div class="map" id="panel-rua" role="tabpanel" aria-labelledby="tab-rua" hidden>
+          <!-- Para ajustar o ângulo da fachada, troque as coordenadas (cbll) e a direção (cbp) pelos valores do link do Street View. -->
+          <iframe title="Street View da fachada do Life Eventos" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+            data-src="https://maps.google.com/maps?layer=c&cbll=-25.5169564,-49.3007559&cbp=12,0,0,0,0&output=svembed"></iframe>
+        </div>
+        <a class="map-link" target="_blank" rel="noopener" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-25.5169564,-49.3007559">Abrir o Street View em tela cheia →</a>
       </div>
     </section>
 
@@ -502,6 +546,7 @@
     <div class="foot-inner">
       <span class="foot-logo" role="img" aria-label="Life, espaço para eventos"></span>
       <nav class="foot-nav" aria-label="Rodapé">
+        <a href="#chegada">A chegada</a>
         <a href="#espaco">O espaço</a>
         <a href="#filmes">Filmes</a>
         <a href="#pacotes">Pacotes</a>
@@ -511,7 +556,12 @@
       </nav>
       <div class="foot-info">
         <p>R. Olindo Sequinel, 275 &middot; Capão Raso, Curitiba, PR</p>
-        <p><a href="tel:+5541999813709">(41) 99981-3709</a> &middot; <a href="https://www.instagram.com/lifeeventos2023/" target="_blank" rel="noopener">@lifeeventos2023</a></p>
+        <p><a href="tel:+5541999813709">(41) 99981-3709</a></p>
+        <div class="social">
+          <a href="https://www.instagram.com/lifeeventos2023/" target="_blank" rel="noopener" aria-label="Instagram do Life Eventos"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg></a>
+          <a href="https://wa.me/5541999813709" target="_blank" rel="noopener" aria-label="WhatsApp do Life Eventos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.4 7.5L3.5 21l1.6-4.4A8.5 8.5 0 1 1 20.5 12z"/></svg></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Life+Eventos+2023+R.+Olindo+Sequinel+275+Curitiba" target="_blank" rel="noopener" aria-label="Life Eventos no Google"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></a>
+        </div>
       </div>
       <p class="foot-copy">© <span data-year>2026</span> Life Eventos. Todos os direitos reservados.</p>
     </div>
@@ -525,7 +575,7 @@
   <div class="lightbox" role="dialog" aria-modal="true" aria-label="Mídia ampliada" hidden data-lightbox>
     <button class="lightbox-close" type="button" aria-label="Fechar">Fechar ✕</button>
     <button class="lightbox-nav prev" type="button" aria-label="Anterior">‹</button>
-    <figure><img alt=""><video controls playsinline hidden></video><figcaption></figcaption></figure>
+    <figure><img alt=""><video controls playsinline hidden></video><figcaption><span data-lb-caption></span><span class="lb-count" data-lb-count></span></figcaption></figure>
     <button class="lightbox-nav next" type="button" aria-label="Próximo">›</button>
   </div>
 
