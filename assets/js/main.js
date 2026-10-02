@@ -94,12 +94,18 @@
       cur = n;
       load(slides[(n + 1) % slides.length]);
     };
-    const tick = () => go((cur + 1) % slides.length);
-    const start = () => { if (!timer && visible && !document.hidden) timer = setInterval(tick, 6000); };
-    const stop = () => { clearInterval(timer); timer = 0; };
+    const FIRST = 2800, EACH = 4500; // 1ª troca rápida, depois um ritmo calmo
+    const setDur = ms => dots.forEach(d => d.style.setProperty("--dur", ms + "ms"));
+    const tick = () => { setDur(EACH); go((cur + 1) % slides.length); };
+    const start = () => {
+      if (timer || !visible || document.hidden) return;
+      timer = setTimeout(function step() { tick(); timer = setTimeout(step, EACH); }, cur === 0 ? FIRST : EACH);
+    };
+    const stop = () => { clearTimeout(timer); timer = 0; };
     if (!reduce && slides.length > 1) {
-      // a segunda foto só começa a baixar depois que a página terminou de carregar
-      window.addEventListener("load", () => { load(slides[1]); start(); }, { once: true });
+      setDur(FIRST);
+      // a segunda foto já começa a baixar assim que a primeira aparece
+      load(slides[0]).then(() => { load(slides[1]); start(); });
       document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
       if ("IntersectionObserver" in window) {
         new IntersectionObserver(([en]) => { visible = en.isIntersecting; visible ? start() : stop(); }).observe(stage);
@@ -178,6 +184,19 @@
       tour.currentTime = marks[k] + 0.05;
       const p = tour.play(); if (p) p.catch(() => {});
     }));
+  }
+
+  /* ---------- Mapa: carrega só quando aparece e a rolagem para (evita travar) ---------- */
+  const mapBox = $(".map-box");
+  const firstMap = $("#panel-mapa iframe[data-src]");
+  if (mapBox && firstMap) {
+    let idle = 0, seen = false;
+    const loadMap = () => { if (firstMap.dataset.src) { firstMap.src = firstMap.dataset.src; firstMap.removeAttribute("data-src"); } };
+    const wait = () => { clearTimeout(idle); idle = setTimeout(() => { if (seen) { loadMap(); window.removeEventListener("scroll", wait); } }, 450); };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([en], obs) => { if (en.isIntersecting) { seen = true; wait(); obs.disconnect(); } }, { rootMargin: "200px 0px" }).observe(mapBox);
+      window.addEventListener("scroll", wait, { passive: true });
+    } else loadMap();
   }
 
   /* ---------- Mapa: alterna entre mapa e Street View ---------- */
