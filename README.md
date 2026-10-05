@@ -44,7 +44,7 @@ python3 -m http.server 8000
 ### GitHub Pages (já configurado)
 1. No GitHub: **Settings → Pages → Source: GitHub Actions**.
 2. Cada push na branch `main` publica o site automaticamente.
-3. Domínio próprio: crie um arquivo `CNAME` na raiz com `www.espacolifeeventos.com.br`
+3. Domínio próprio: crie um arquivo `CNAME` na raiz com `www.lifeeventos2023.com.br`
    e aponte o DNS do domínio para o GitHub Pages.
 
 ### Alternativas
