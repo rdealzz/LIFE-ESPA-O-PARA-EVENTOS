@@ -1,13 +1,14 @@
 {
   "name": "Life Eventos",
   "short_name": "Life",
-  "description": "Salão de festas no Capão Raso, Curitiba.",
+  "description": "Espaço para eventos no Capão Raso, Curitiba.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FBF8F3",
   "theme_color": "#FBF8F3",
   "icons": [
-    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
-    { "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+    { "src": "assets/img/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]
 }
