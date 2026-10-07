@@ -255,6 +255,7 @@ p { margin: 0; }
 .room-media figure:hover img, .room-media figure:hover video { transform: scale(1.035); }
 .room-media.pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.7rem, 1.4vw, 1.1rem); align-items: start; }
 .room-media.pair figure { aspect-ratio: 3 / 4; }
+.room-media.pair figure video { width: 100%; height: 100%; object-fit: cover; }
 .room-media.pair figure + figure { margin-top: clamp(2rem, 6vw, 5rem); }
 .room:has(.room-video) { grid-template-columns: minmax(0, 340px) minmax(0, 30rem); justify-content: center; }
 .room.reverse:has(.room-video) { grid-template-columns: minmax(0, 30rem) minmax(0, 340px); }
