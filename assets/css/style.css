@@ -224,6 +224,28 @@ p { margin: 0; }
   .stats div:nth-child(3) { border-left: 0; }
 }
 
+/* ---------- Vista ampla do salão ---------- */
+.panorama { margin: 0 0 clamp(4.5rem, 9vw, 8rem); display: grid; gap: 1rem; }
+.photo-wide { display: block; width: 100%; overflow: hidden; cursor: zoom-in; aspect-ratio: 1920 / 958; background: var(--blush); contain: paint; }
+.photo-wide img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s var(--ease); }
+.photo-wide:hover img { transform: scale(1.025); }
+.panorama figcaption { text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink-soft); }
+@media (max-width: 860px) {
+  .panorama { margin-inline: calc(-1 * var(--gutter)); }
+  .photo-wide { aspect-ratio: 4 / 3; }
+  .photo-wide img { object-position: 38% center; }
+  .panorama figcaption { padding-inline: var(--gutter); font-size: 1.05rem; }
+}
+.room-feature { grid-template-columns: .8fr 1.2fr; }
+.feature-media { position: relative; padding-bottom: 12%; }
+.feature-main { aspect-ratio: 1080 / 1170; max-height: 86vh; box-shadow: 0 40px 80px -45px rgba(44, 39, 37, .5); }
+.feature-detail { position: absolute; left: -8%; bottom: 0; width: 46%; aspect-ratio: 3 / 2; border: 8px solid var(--ivory); box-shadow: 0 30px 60px -30px rgba(44, 39, 37, .45); }
+@media (max-width: 860px) {
+  .room-feature { grid-template-columns: 1fr; }
+  .feature-main { max-height: none; }
+  .feature-detail { left: auto; right: -2%; width: 55%; border-width: 5px; }
+}
+
 /* ---------- Ambientes ---------- */
 .room { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: clamp(2rem, 6vw, 6rem); }
 .room + .room { margin-top: clamp(4.5rem, 9vw, 8rem); }

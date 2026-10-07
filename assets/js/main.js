@@ -306,7 +306,7 @@
     const vid = $("video", box);
     const cap = $("[data-lb-caption]", box);
     const count = $("[data-lb-count]", box);
-    const photos = $$(".photo");
+    const photos = $$(".photo, .photo-wide");
     let current = 0, lastFocus = null;
     const show = i => {
       current = (i + photos.length) % photos.length;
