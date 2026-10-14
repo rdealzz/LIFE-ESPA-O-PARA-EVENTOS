@@ -26,7 +26,7 @@ jobs:
       - name: Separar só os arquivos do site
         run: |
           mkdir _site
-          cp -r index.html 404.html robots.txt sitemap.xml site.webmanifest .nojekyll assets _site/
+          cp -r index.html 404.html favicon.ico robots.txt sitemap.xml site.webmanifest .nojekyll assets _site/
           [ -f CNAME ] && cp CNAME _site/ || true
       - uses: actions/upload-pages-artifact@v3
         with:
